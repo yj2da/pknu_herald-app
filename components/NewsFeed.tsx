@@ -15,12 +15,18 @@ const NewsFeed = () => {
 
   const formatMetadata = (text: string) => {
     if (!text) return '';
-    // Add spaces between keywords and dates
     return text
-      .replace(/기자(\d)/g, '기자 $1') // 기자 2026
-      .replace(/([가-힣]{2,})([가-힣]{2,})기자/g, '$1 $2기자') // 쇼츠 김태훈기자
-      .replace(/([가-힣]+기자)(\d)/g, '$1 $2') // 김태훈기자 2026
-      .replace(/(\d{4}-\d{2}-\d{2})/g, ' $1'); // Space before ISO date
+      // 1. Separate common categories from the following text
+      .replace(/^(쇼츠|오디오|기획영상|기획|취재|보도|뉴스|NewsBy)([가-힣A-Za-z])/g, '$1 $2')
+      // 2. Ensure space before "기자"
+      .replace(/([가-힣A-Za-z0-9])(기자)/g, '$1 $2')
+      // 3. Ensure space after "기자"
+      .replace(/(기자)([가-힣A-Za-z0-9])/g, '$1 $2')
+      // 4. Ensure space before dates (YYYY-MM-DD or YYYY.MM.DD)
+      .replace(/(\d{4}[-.]\d{2}[-.]\d{2})/g, ' $1')
+      // 5. Clean up multiple spaces
+      .replace(/\s+/g, ' ')
+      .trim();
   };
 
   useEffect(() => {
