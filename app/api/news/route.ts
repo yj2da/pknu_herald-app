@@ -6,16 +6,19 @@ export async function GET() {
     const targetUrl = 'https://press.pknu.ac.kr/news/articleList.html?sc_section_code=S1N5&view_type=sm';
     const response = await fetch(targetUrl, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept-Charset': 'utf-8'
       }
     });
-    const html = await response.text();
+    const buffer = await response.arrayBuffer();
+    const decoder = new TextDecoder('utf-8');
+    const html = decoder.decode(buffer);
     const $ = cheerio.load(html);
     const articles: any[] = [];
 
-    // Updated scraping logic based on HTML analysis
-    $('.altlist-webzine-item, .altlist-text-item, .altlist-tile-item, [class*="altlist-"][class*="-item"]').each((i, el) => {
-      const titleEl = $(el).find('.auto-titles, .titles, .altlist-subject');
+    // Herald specific selectors based on actual site structure
+    $('.altlist-webzine-item, .altlist-text-item, .altlist-tile-item').each((i, el) => {
+      const titleEl = $(el).find('.auto-titles, .altlist-subject');
       const title = titleEl.text().trim();
       
       let link = '';
