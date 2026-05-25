@@ -42,14 +42,9 @@ const NewsFeed = () => {
 
   return (
     <div className="bg-[#F8F9FB] min-h-full pb-12">
-      {/* Header */}
-      <header className="bg-white px-5 py-4 border-b border-gray-100 flex items-center justify-between sticky top-0 z-40">
-        <span className="text-[15px] font-bold text-gray-800">알림</span>
-        <div className="w-10 h-10 bg-[#4A7DFF] rounded-full flex items-center justify-center shadow-lg shadow-blue-200">
-           <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-              <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path>
-           </svg>
-        </div>
+      {/* Header Simplified */}
+      <header className="bg-white px-5 py-5 border-b border-gray-100 flex items-center justify-center sticky top-0 z-40">
+        <h1 className="text-[17px] font-black text-gray-900 tracking-tight">PKNU_HERALD</h1>
       </header>
 
       <div className="px-4 py-5 space-y-6">
@@ -57,9 +52,7 @@ const NewsFeed = () => {
         {hero && (
           <section>
             <div className="flex items-center space-x-1 mb-2">
-              <span className="text-[11px] font-bold text-[#4A7DFF]">뉴스데스크</span>
-              <span className="text-[11px] text-gray-300">|</span>
-              <span className="text-[11px] text-gray-400 font-medium">Herald News</span>
+              <span className="text-[11px] font-bold text-[#4A7DFF]">NEWS DESK</span>
             </div>
             <a href={hero.link} target="_blank" rel="noopener noreferrer" className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 relative group active:scale-[0.98] transition-transform">
                {hero.image && (
@@ -83,10 +76,9 @@ const NewsFeed = () => {
           </section>
         )}
 
-        {/* Breaking News Section */}
+        {/* Breaking News Section (No Label) */}
         {breaking && (
           <section>
-            <div className="text-[12px] font-bold text-gray-400 mb-3 ml-1 uppercase tracking-wider">속보</div>
             <a href={breaking.link} target="_blank" rel="noopener noreferrer" className="flex items-center bg-white rounded-2xl p-4 shadow-sm border border-gray-50 active:bg-gray-50 transition-colors">
                <div className="flex-1 pr-3">
                   <h3 className="text-[15px] font-bold text-gray-800 leading-snug line-clamp-2">
@@ -103,9 +95,8 @@ const NewsFeed = () => {
           </section>
         )}
 
-        {/* Latest News Section */}
+        {/* Latest News Section (No Label) */}
         <section>
-          <div className="text-[12px] font-bold text-gray-400 mb-3 ml-1 uppercase tracking-wider">주요뉴스</div>
           <div className="space-y-3">
             {latest.map((article, idx) => (
               <a key={idx} href={article.link} target="_blank" rel="noopener noreferrer" className="flex items-center bg-white rounded-xl p-3 shadow-[0_2px_8px_rgba(0,0,0,0.02)] border border-gray-50 active:bg-gray-50 transition-colors">
