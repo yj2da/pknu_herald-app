@@ -64,13 +64,13 @@ const NewsFeed = () => {
                   />
                 </div>
               )}
-              <h2 className="text-2xl font-bold text-black dark:text-white leading-tight group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors">
+              <h2 className="text-[22px] font-extrabold text-black dark:text-white leading-[1.2] group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors tracking-tight">
                 {heroArticle.title}
               </h2>
               <div className="flex items-center mt-3 space-x-2">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Top Story</span>
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tight">Top Story</span>
                 <span className="text-[10px] text-gray-300">•</span>
-                <span className="text-[10px] text-gray-400 uppercase tracking-tighter">{heroArticle.date}</span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-tight">{heroArticle.date}</span>
               </div>
             </a>
           </article>
@@ -87,10 +87,10 @@ const NewsFeed = () => {
                 className="flex items-start justify-between py-4 border-b border-gray-50 dark:border-gray-900 last:border-0 group"
               >
                 <div className="flex-1 pr-4">
-                  <h3 className="text-[16px] font-bold text-gray-900 dark:text-gray-100 leading-snug group-hover:text-gray-600 transition-colors">
+                  <h3 className="text-[15px] font-bold text-gray-900 dark:text-gray-100 leading-[1.4] group-hover:text-gray-600 transition-colors line-clamp-3">
                     {article.title}
                   </h3>
-                  <p className="text-[11px] font-medium text-gray-400 mt-2 uppercase tracking-tighter">
+                  <p className="text-[10px] font-bold text-gray-400 mt-2 uppercase tracking-tight">
                     {article.date || 'Herald News'}
                   </p>
                 </div>
