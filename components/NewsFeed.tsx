@@ -16,15 +16,13 @@ const NewsFeed = () => {
   const formatMetadata = (text: string) => {
     if (!text) return '';
     return text
-      // 1. Separate common categories from the following text
-      .replace(/^(쇼츠|오디오|기획영상|기획|취재|보도|뉴스|NewsBy)([가-힣A-Za-z])/g, '$1 $2')
-      // 2. Ensure space before "기자"
-      .replace(/([가-힣A-Za-z0-9])(기자)/g, '$1 $2')
-      // 3. Ensure space after "기자"
-      .replace(/(기자)([가-힣A-Za-z0-9])/g, '$1 $2')
-      // 4. Ensure space before dates (YYYY-MM-DD or YYYY.MM.DD)
+      // Separate Name and Date (e.g. ByName2026 -> ByName 2026)
+      .replace(/([a-zA-Z])(\d{4})/g, '$1 $2')
+      // Separate keywords
+      .replace(/^(NewsBy|By|Reporter)([A-Z])/g, '$1 $2')
+      // Ensure space before dates
       .replace(/(\d{4}[-.]\d{2}[-.]\d{2})/g, ' $1')
-      // 5. Clean up multiple spaces
+      // Clean up multiple spaces
       .replace(/\s+/g, ' ')
       .trim();
   };
@@ -68,7 +66,7 @@ const NewsFeed = () => {
         {hero && (
           <section>
             <div className="flex items-center space-x-1 mb-2">
-              <span className="text-[11px] font-bold text-[#4A7DFF]">NEWS DESK</span>
+              <span className="text-[11px] font-bold text-[#4A7DFF]">HERALD NEWS</span>
             </div>
             <a href={hero.link} target="_blank" rel="noopener noreferrer" className="block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 relative group active:scale-[0.98] transition-transform">
                {hero.image && (
@@ -76,7 +74,7 @@ const NewsFeed = () => {
                     <img src={hero.image} alt="main" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                  </div>
                )}
-               <div className="p-4 pr-14 relative">
+               <div className="p-4 relative">
                   <h2 className="text-[17px] font-bold text-gray-900 leading-tight line-clamp-2 mb-2">
                     {hero.title}
                   </h2>

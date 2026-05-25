@@ -21,6 +21,9 @@ export async function GET() {
       const titleEl = $(el).find('.auto-titles, .altlist-subject');
       const title = titleEl.text().trim();
       
+      // Filter: Skip titles containing Korean characters to ensure English-only Herald news
+      if (/[가-힣]/.test(title)) return;
+
       let link = '';
       const linkEl = $(el).find('a[href*="articleView.html"]');
       link = linkEl.attr('href') || '';
@@ -48,6 +51,10 @@ export async function GET() {
         const titleEl = $(el).find('.auto-titles, .titles');
         if (titleEl.length > 0) {
           const title = titleEl.text().trim();
+          
+          // Filter: Skip titles containing Korean characters to ensure English-only Herald news
+          if (/[가-힣]/.test(title)) return;
+
           let link = $(el).attr('href') || '';
           if (link && !link.startsWith('http')) {
             link = `https://press.pknu.ac.kr${link}`;
