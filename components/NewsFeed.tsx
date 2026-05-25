@@ -13,6 +13,16 @@ const NewsFeed = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const formatMetadata = (text: string) => {
+    if (!text) return '';
+    // Add spaces between keywords and dates
+    return text
+      .replace(/기자(\d)/g, '기자 $1') // 기자 2026
+      .replace(/([가-힣]{2,})([가-힣]{2,})기자/g, '$1 $2기자') // 쇼츠 김태훈기자
+      .replace(/([가-힣]+기자)(\d)/g, '$1 $2') // 김태훈기자 2026
+      .replace(/(\d{4}-\d{2}-\d{2})/g, ' $1'); // Space before ISO date
+  };
+
   useEffect(() => {
     fetch('/api/news')
       .then((res) => res.json())
@@ -42,9 +52,9 @@ const NewsFeed = () => {
 
   return (
     <div className="bg-[#F8F9FB] min-h-full pb-12">
-      {/* Header Simplified */}
+      {/* Header Simplified - Strictly Title Only */}
       <header className="bg-white px-5 py-5 border-b border-gray-100 flex items-center justify-center sticky top-0 z-40">
-        <h1 className="text-[17px] font-black text-gray-900 tracking-tight">PKNU_HERALD</h1>
+        <h1 className="text-[17px] font-black text-gray-900 tracking-tight uppercase">PKNU_HERALD</h1>
       </header>
 
       <div className="px-4 py-5 space-y-6">
@@ -64,7 +74,7 @@ const NewsFeed = () => {
                   <h2 className="text-[17px] font-bold text-gray-900 leading-tight line-clamp-2 mb-2">
                     {hero.title}
                   </h2>
-                  <p className="text-[11px] text-gray-400">{hero.date}</p>
+                  <p className="text-[11px] text-gray-400">{formatMetadata(hero.date)}</p>
                   
                   {/* Bookmark UI */}
                   <div className="absolute right-3 -top-6 w-10 h-14 bg-[#4A7DFF] rounded-b-md shadow-md flex flex-col items-center justify-center space-y-1">
@@ -76,15 +86,15 @@ const NewsFeed = () => {
           </section>
         )}
 
-        {/* Breaking News Section (No Label) */}
+        {/* Breaking News Section */}
         {breaking && (
           <section>
             <a href={breaking.link} target="_blank" rel="noopener noreferrer" className="flex items-center bg-white rounded-2xl p-4 shadow-sm border border-gray-50 active:bg-gray-50 transition-colors">
                <div className="flex-1 pr-3">
-                  <h3 className="text-[15px] font-bold text-gray-800 leading-snug line-clamp-2">
+                  <h3 className="text-[15px] font-bold text-gray-900 leading-snug line-clamp-2">
                     {breaking.title}
                   </h3>
-                  <p className="mt-2 text-[10px] text-gray-400 font-medium">{breaking.date}</p>
+                  <p className="mt-2 text-[10px] text-gray-400 font-medium">{formatMetadata(breaking.date)}</p>
                </div>
                {breaking.image && (
                  <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0">
@@ -95,7 +105,7 @@ const NewsFeed = () => {
           </section>
         )}
 
-        {/* Latest News Section (No Label) */}
+        {/* Latest News Section */}
         <section>
           <div className="space-y-3">
             {latest.map((article, idx) => (
@@ -104,7 +114,7 @@ const NewsFeed = () => {
                     <h3 className="text-[14px] font-bold text-gray-800 leading-snug line-clamp-2">
                       {article.title}
                     </h3>
-                    <p className="mt-1 text-[10px] text-gray-400">{article.date}</p>
+                    <p className="mt-1 text-[10px] text-gray-400">{formatMetadata(article.date)}</p>
                  </div>
                  {article.image ? (
                    <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 shadow-inner">
