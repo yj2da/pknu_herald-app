@@ -31,11 +31,13 @@ export async function GET() {
         link = `https://press.pknu.ac.kr${link}`;
       }
 
-      const imageEl = $(el).find('.auto-images img, .thumb img, .altlist-image img');
-      let image = imageEl.attr('src') || '';
+      const imageEl = $(el).find('.auto-images img, .thumb img, .altlist-image img, img');
+      let image = imageEl.attr('src') || imageEl.attr('data-src') || '';
       if (image && !image.startsWith('http')) {
-        image = `https://press.pknu.ac.kr${image}`;
+        image = image.startsWith('//') ? `https:${image}` : `https://press.pknu.ac.kr${image}`;
       }
+      // If it's a logo or default image, might want to ignore it or keep it
+      if (image.includes('logo') || image.includes('ndsoft')) image = '';
 
       const dateEl = $(el).find('.replace-date, .byline, .altlist-info-item');
       const date = dateEl.text().trim();
