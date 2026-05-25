@@ -81,12 +81,6 @@ const NewsFeed = () => {
                     {hero.title}
                   </h2>
                   <p className="text-[11px] text-gray-400">{formatMetadata(hero.date)}</p>
-                  
-                  {/* Bookmark UI */}
-                  <div className="absolute right-3 -top-6 w-10 h-14 bg-[#4A7DFF] rounded-b-md shadow-md flex flex-col items-center justify-center space-y-1">
-                     <div className="w-4 h-[2px] bg-white opacity-80"></div>
-                     <div className="w-4 h-[2px] bg-white opacity-80"></div>
-                  </div>
                </div>
             </a>
           </section>
